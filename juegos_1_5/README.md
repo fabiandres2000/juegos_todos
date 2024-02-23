@@ -1,5 +1,6 @@
-<h1> Juegos agregados</h1> 
-<strong>Juegos Primero </strong> 
-- Area Lengua Castellana(Escucha,Letras, Relaciona)
-- Area Ciencias naturales(Identifica,Mi cuerpo)
-                   
+<h1> Juegos agregados</h1>
+<h4>Juegos Primero </h4>
+<ul>
+<li><strong>Área Lengua Castellana: </strong> (Escucha,Letras, Relaciona)</li>
+<li><strong>Área Ciencias naturales: </strong> (Identifica,Mi cuerpo)</li>
+</ul>
