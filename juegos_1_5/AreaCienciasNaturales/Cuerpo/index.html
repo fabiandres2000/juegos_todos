@@ -31,7 +31,7 @@
 	</div>
 
 	<div style="display: none; text-align: center;" id="final" class="final">
-		<h1 style="font-size: 25pt; padding-top: 326pt; padding-bottom: 0px;" class="borde2" id="texto_final"></h1>
+		<h1 style="font-size: 25pt; padding-top: 260pt; padding-bottom: 0px;" class="borde2" id="texto_final"></h1>
 		<hr>
 		<div class="row">
 			<div class="col-12" style="padding-bottom: 0pt; margin-top: 0px;">
@@ -53,33 +53,36 @@
 	<div id="principal" class="container" style="margin-top: 5px">
 		<div class="row">
 			<div class="col-11" style="display: flex;align-items: center;justify-content: center;">
-				<h1 style="color: #e23564;;">Relaciona Mayúsculas y Minúsculas</h1>
+				<h1 style="color: #e23564;;">Identifica las partes del cuerpo</h1>
 			</div>
 			<div class="col-1"><button onclick="history.back()" class="btn btn-danger"><i class="fa fa-arrow-left"
 						aria-hidden="true"></i></button></div>
 			<div class="col-11" style="display: flex;align-items: center;justify-content: center;">
-							<h1 style="color: #e23564;" id="timer_sec"></h1>
+				<h1 style="color: #e23564;" id="timer_sec"></h1>
 			</div>
 		</div>
+		<div id="div-gen">
+			<div id="cajonAccion" data-id="0" class="cajon" >
 
-		<div id="div-gen">	
-		<div id="contenedor">
-			<div id="cajonMayusculas" data-id="1" class="cajon" ondrop="drop(event, 'mayusculas')" ondragover="allowDrop(event)">
-				<h3>Mayúsculas</h3>
 			</div>
-			<div id="cajonMinusculas" data-id="1" class="cajon" ondrop="drop(event, 'minusculas')" ondragover="allowDrop(event)">
-				<h3>Minúsculas</h3>
+			<div id="contenedor">
+				<div id="cajonCabeza" data-parte="Cabeza" onclick="verifResp(this)" class="cajon option-btn">
+
+				</div>
+				<div id="cajonTronco" data-parte="Tronco"  onclick="verifResp(this)" class="cajon option-btn">
+
+				</div>
+				<div id="cajonMano" data-parte="Manos"  onclick="verifResp(this)" class="cajon option-btn">
+
+				</div>
+				<div id="cajonBrazos" data-parte="Brazos"  onclick="verifResp(this)" class="cajon option-btn">
+
+				</div>
+				<div id="cajonPiernas" data-parte="Piernas"  onclick="verifResp(this)" class="cajon option-btn">
+
+				</div>
 			</div>
 		</div>
-		<div id="cajonLetras" data-id="0" class="cajon" ondrop="drop(event, 'letras')" ondragover="allowDrop(event)">
-			<h3>Letras</h3>
-		</div>
-
-		
-
-	</div>
-		
-
 	</div>
 	<script src="script.js"></script>
 </body>

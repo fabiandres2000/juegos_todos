@@ -308,18 +308,45 @@ body{
 }
 
 .cajon {
-    width: 400px;
+    width: 150px;
     height: 150px;
-    border: 2px solid #000;
     margin: 10px;
     padding: 10px;
     position: relative;
+    cursor: pointer;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-#cajonLetras {
+#cajonCabeza{
+ background-image: url("img/cabeza.png");
+ background-size: cover;
+}
+
+#cajonTronco{
+ background-image: url("img/tronco.png");
+ background-size: cover;
+}
+
+#cajonMano{
+ background-image: url("img/manos.png");
+ background-size: cover;
+}
+
+#cajonBrazos{
+ background-image: url("img/brazos.png");
+ background-size: cover;
+}
+
+#cajonPiernas{
+ background-image: url("img/piernas.png");
+ background-size: cover;
+}
+
+#cajonAccion {
     width: 600px; /* Aumentar el ancho del cajón de letras */
     height: 200px; /* Reducir la altura del cajón de letras */
-    border: 2px solid #000;
     margin: 10px;
     padding: 10px;
     position: relative;
@@ -332,8 +359,19 @@ body{
     cursor: move;
 }
 
-#intentos {
-    text-align: center;
+
+ /* Efecto de zoom al pasar el mouse */
+ .option-btn:hover, #play-btn:hover {
+    transform: scale(1.2); /* Puedes ajustar el nivel de zoom aquí */
+}
+
+ /* Estilos adicionales para resaltar la respuesta correcta o incorrecta */
+ .correct-answer {
+    filter: drop-shadow(16px 7px 8px #8eff8e);
+}
+
+.incorrect-answer {
+    filter: drop-shadow(16px 7px 8px #ff8e8e);
 }
 
  
