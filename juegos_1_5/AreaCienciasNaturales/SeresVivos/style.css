@@ -291,24 +291,22 @@ body{
 
 }
 
-#div-gen{
+.movible {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px; /* Espacio entre los divs */
+    top: 50%;
+    position: absolute;
+    transform: translate(0%, -50%);
+    cursor: pointer;
+  }
+
+  #titumensaje {
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
+    margin-top: 20px; /* Puedes ajustar el valor según tu diseño */
+  }
 
-#contenedor {
-    display: flex;
-    flex-direction: row;
-    height: 100vh;
-}
-
-.ser {
-    width: 100vw;
-    height: 100vh;
-    background-size: cover;
-    transition: transform 1s ease;
-}
+  #titumensaje h1 {
+    color: #e23564;
+  }

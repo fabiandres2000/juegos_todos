@@ -73,6 +73,8 @@ function inicioJuego() {
         } else {
             clearInterval(countdownInterval);
             clearInterval(countdownLetras);
+            $("#principal").fadeToggle(1000);
+            $("#final").fadeToggle(1000);
             if (score <= 0) {
                 isPaused = false;
                 var audio = new Audio("../../sounds/game_over.mp3");

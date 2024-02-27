@@ -69,7 +69,7 @@ let acciones = [
 function inicioJuego() {
     cantidad++;
     let cuerpoSel = obtenerIndiceAleatorio(acciones);
-    console.log(cuerpoSel);
+   
     acccionParte = cuerpoSel.nombre;
     nombreParte = cuerpoSel.parte_del_cuerpo;
    
@@ -95,7 +95,7 @@ function verifResp(element){
     }
 
     element.appendChild(imagen);
-    console.log(cantidad);
+   
     setTimeout(function(){
         imagen.remove();
         if(cantidad < 10){

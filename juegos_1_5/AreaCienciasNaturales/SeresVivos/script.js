@@ -1,10 +1,9 @@
 let intentosIncorrectos = 0;
-let cantidad = 0; 
+let cantidad = 0;
 let cuerpoSel;
 let parteMostrada = [];
 
 let seres = [
- 
   {
     imagen: "img/perro.png",
     clasificacion: "vivo",
@@ -165,46 +164,116 @@ let seres = [
   },
 ];
 
+var estados = ["inerte", "vivo"];
+
+ 
+let countdownInterval;
+const gameDuration = 60;
+let timer = gameDuration;
+let score = 0;
+let countdownDivs;
+let estadoSel;
 
 function inicioJuego() {
-  
-  const contenedor = document.getElementById("contenedor");
-  contenedor.innerHTML = "";
 
-  for (let i = 0; i < 2; i++) {
-      const serAleatorio = seres[Math.floor(Math.random() * seres.length)];
-      const div = document.createElement("div");
-      div.className = "ser";
-      div.style.backgroundImage = `url('${serAleatorio.imagen}')`;
-      contenedor.appendChild(div);
-  }
+  let indice = Math.floor(Math.random() * estados.length);
+  estadoSel = estados[indice];
+  document.getElementById("tiCate").innerHTML = "¿Cuales seres son "+estadoSel+"?";
+  countdownInterval = setInterval(() => {
+    if (timer > 0) {
+        timer--;
+        updateTimer();
+    } else { 
+        clearInterval(countdownInterval);
+        clearInterval(countdownDivs);
+        $("#principal").fadeToggle(1000);
+        $("#final").fadeToggle(1000);
+        if (score <= 0) {
+            isPaused = false;
+            var audio = new Audio("../../sounds/game_over.mp3");
+            audio.play();
+            document.getElementById("final").style.backgroundImage =
+                "url(../../images/derrota.gif)";
+            document.getElementById("texto_final").innerText =
+                "No has logrado obtener ningún punto";
+        } else {
+            document.getElementById("final").style.backgroundImage =
+                "url(../../images/victoria.gif)";
+            var audio = new Audio("../../sounds/victory.mp3");
+            audio.play();
+            document.getElementById("texto_final").innerText =
+                "Has obtenido " + score + " puntos";
+        }
+    }
+}, 1000);
 
-  // Aplicar la transición
-  contenedor.children[0].style.transform = "translateX(-100%)";
-  contenedor.children[1].style.transform = "translateX(100%)";
-
-  setTimeout(() => {
-      contenedor.children[0].style.transform = "";
-      contenedor.children[1].style.transform = "";
-  }, 1000);
+  crearDiv();
+  countdownDivs = setInterval(crearDiv, 4000);
 }
 
 
 
-function obtenerIndiceAleatorio(cuerpo) {
-    console.log(cuerpo);
-    let indice = Math.floor(Math.random() * cuerpo.length);
-    while (parteMostrada.includes(indice)) {
-        indice = Math.floor(Math.random() * cuerpo.length);
-    }
-    parteMostrada.push(indice);
 
-    return cuerpo[indice];
+function crearDiv() {
+let indice = obtenerIndiceAleatorio();
+  const nuevoDiv = document.createElement("div");
+  nuevoDiv.className = "movible";
+  nuevoDiv.style.left = "0";
+ 
+  nuevoDiv.innerHTML = `<img width="200" src="${seres[indice].imagen}">`;
+  nuevoDiv.setAttribute("data-id",seres[indice].clasificacion);
+  document.body.appendChild(nuevoDiv);
+
+  nuevoDiv.addEventListener('click', function() {
+    var estado = nuevoDiv.getAttribute('data-id');
+    var imagen = document.createElement("img");
+    imagen.style.width = "150px";
+    imagen.style.position = "absolute";
+    imagen.style.top = "50%";
+    imagen.style.left = "50%";
+  
+    if(estado == estadoSel){
+      imagen.src = "img/correcta.png";
+      score++;
+    }else{
+      imagen.src = "img/incorrecta.png";
+    }
+
+    nuevoDiv.appendChild(imagen);
+   
+  });
+  
+
+  function moverDiv() {
+    const posicionActual = parseInt(getComputedStyle(nuevoDiv).left);
+    const anchoPantalla = window.innerWidth;
+
+    if (posicionActual < anchoPantalla) {
+      nuevoDiv.style.left = (posicionActual + 1) + "px";
+    } else {
+     
+      nuevoDiv.remove();
+    }
+  }
+
+  setInterval(moverDiv, 1);
+}
+
+
+
+function obtenerIndiceAleatorio() {
+  let indice = Math.floor(Math.random() * seres.length);
+  return indice;
+}
+
+function updateTimer() {
+  document.getElementById(
+      "timer_sec"
+  ).innerText = `Tiempo restante: ${timer} s`;
 }
 
 $(document).ready(function () {
   setTimeout(function () {
-   
     let audio2 = new Audio("sounds/enunciado.mp3");
     audio2.playbackRate = 0.8;
     audio2.play();
@@ -283,7 +352,7 @@ function cerrar_anuncio() {
     setTimeout(() => {
       $("#principal").fadeToggle(1000);
       inicioJuego();
-      setInterval(inicioJuego, 5000);
+      
     }, 2000);
   }, 2000);
 }
