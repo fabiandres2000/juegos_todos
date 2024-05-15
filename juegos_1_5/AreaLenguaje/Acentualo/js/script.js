@@ -180,24 +180,37 @@ function separarCaracteres() {
         div.classList.add("letra");
         div.id = cont;
         div.innerHTML = caracter;
+        let palabra = document.getElementById("palabra");
         div.addEventListener("click", function () {
+       
             if (acento == this.id) {
                 document.getElementById("img-mascota").src =
                     "../../images/correcto.gif";
                 $("#" + this.id)
                     .addClass("letraCorrecta")
                     .removeClass("letra");
-                correctas++;
+                correctas++;     
+            
+               
+                palabra.classList.add("bloquearLetter");
+                
+
             } else {
                 document.getElementById("img-mascota").src =
                     "../../images/incorrecto.gif";
 
                 $("#" + this.id).addClass("letraErrada").removeClass("letra");
                 $("#" + acento).addClass("letraCorrecta").removeClass("letra");
+                palabra.classList.add("bloquearLetter");
+             
             }
 
             if (npreg < 10) {
-                setTimeout(separarCaracteres, 3000);
+                setTimeout(() => {
+                    separarCaracteres();
+                    palabra.classList.remove("bloquearLetter");
+                }, 3000);
+               
             } else {
                 $("#principal").fadeToggle(1000);
                 $("#final").fadeToggle(1000);

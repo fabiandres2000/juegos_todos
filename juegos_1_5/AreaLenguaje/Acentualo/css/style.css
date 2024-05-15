@@ -39,6 +39,7 @@ body{
     justify-content: center;
     align-items: flex-start;
     align-content: flex-start;
+    cursor: pointer;
   }
 
 
@@ -174,7 +175,7 @@ body{
 
   .divGenio{
     position: absolute;
-    bottom: 67px;
+    top: 35%;
     left: 86px;
     animation: divGenio 1s forwards;
 }
@@ -279,3 +280,8 @@ body{
     height: 100%;
     background-color: rgba(255, 255, 255, 0.904);
   }
+
+  .bloquearLetter{
+    pointer-events: none;
+  }
+  

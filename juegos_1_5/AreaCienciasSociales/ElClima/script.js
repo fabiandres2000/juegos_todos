@@ -1,7 +1,16 @@
 let intentosIncorrectos = 0;
 let cantidad = 0;
 let cuerpoSel;
-let parteMostrada = [];
+let climasSeleccionados = [];
+let climasel;
+
+var tiposDeClimas = [
+  { nombre: "soleado", imagen: "soleado.png" },
+  { nombre: "lluvioso", imagen: "lluvioso.png" },
+  { nombre: "nublado", imagen: "nublado.png" },
+  { nombre: "nevado", imagen: "nevado.png" },
+  { nombre: "tormenta", imagen: "tormenta.png" },
+];
 
 var image = document.getElementById("myImage");
 var container = document.querySelector(".container");
@@ -16,8 +25,38 @@ function inicioJuego() {
     requestAnimationFrame(inicioJuego);
   } else {
     startZoom();
-   // image.remove();
   }
+}
+
+function mostrarOpc() {
+  cantidad++;
+  climasSeleccionados = [];
+  while (climasSeleccionados.length < 4) {
+    var climaAleatorio =
+      tiposDeClimas[Math.floor(Math.random() * tiposDeClimas.length)];
+    if (!climasSeleccionados.includes(climaAleatorio)) {
+      climasSeleccionados.push(climaAleatorio);
+    }
+  }
+
+  for (var i = 0; i < climasSeleccionados.length; i++) {
+    var climaDiv = document.getElementById("clima" + (i + 1));
+    climaDiv.innerText = climasSeleccionados[i].nombre;
+    climaDiv.setAttribute("data-clima", climasSeleccionados[i].nombre);
+  }
+
+  console.log(climasSeleccionados);
+  setTimeout(() => {
+    $("#divGeneral").show();
+  }, 3800);
+
+  var climaElegido =
+    climasSeleccionados[Math.floor(Math.random() * climasSeleccionados.length)];
+
+  climasel = climaElegido.nombre;
+
+  document.body.style.backgroundImage =
+    'url("img/' + climaElegido.imagen + '")';
 }
 
 function startZoom() {
@@ -28,35 +67,60 @@ function startZoom() {
   zoomableDiv.classList.add("zoomed");
 
   // Esperar hasta que termine la transición de zoom
-  zoomableDiv.addEventListener("transitionend", function() {
+  zoomableDiv.addEventListener("transitionend", function () {
     // Cambiar color de fondo del body después del zoom
     body.style.backgroundColor = "#e0e0e0";
 
     // Reiniciar el zoom después de 1.5 segundos (1500 milisegundos)
-    setTimeout(function() {
-      body.style.backgroundColor = "";  // Reiniciar color de fondo del body
+    setTimeout(function () {
+      body.style.backgroundColor = ""; // Reiniciar color de fondo del body
       zoomableDiv.classList.remove("zoomed");
-      
-      image.remove();
-      
-     setTimeout(function() { 
-      document.body.style.backgroundImage = 'url("img/clima1.png")';}, 1400);
+    }, 1000);
+
+    setTimeout(() => {
       zoomableDiv.remove();
-   
-    }, 1500);
-    
+    }, 1800);
+
+    image.remove();
+    mostrarOpc();
   });
 }
 
-function obtenerIndiceAleatorio(cuerpo) {
-  console.log(cuerpo);
-  let indice = Math.floor(Math.random() * cuerpo.length);
-  while (parteMostrada.includes(indice)) {
-    indice = Math.floor(Math.random() * cuerpo.length);
+function verfResp(element) {
+  let divGen = document.createElement("contenedor");
+  divGen.classList.add("bloquea");
+  let sel = element.getAttribute("data-clima");
+  if (sel == climasel) {
+    element.classList.add("correcto");
+    intentosIncorrectos++;
+  } else {
+    element.classList.add("incorrecto");
   }
-  parteMostrada.push(indice);
 
-  return cuerpo[indice];
+  setTimeout(function () {
+    if (cantidad < 10) {
+      mostrarOpc();
+      $("#divGeneral").hide();
+      element.classList.remove("correcto");
+      element.classList.remove("incorrecto");
+    } else {
+      $("#principal").fadeToggle(1000);
+      $("#final").fadeToggle(1000);
+      if (intentosIncorrectos < 6) {
+        var audio = new Audio("../../sounds/game_over.mp3");
+        audio.play();
+        document.getElementById("final").style.backgroundImage =
+          "url(../../images/derrota.gif)";
+      } else {
+        document.getElementById("final").style.backgroundImage =
+          "url(../../images/victoria.gif)";
+        var audio = new Audio("../../sounds/victory.mp3");
+        audio.play();
+      }
+      document.getElementById("texto_final").innerText =
+        "Has obtenido " + intentosIncorrectos + " de 10 puntos posibles";
+    }
+  }, 2500);
 }
 
 $(document).ready(function () {
@@ -83,7 +147,7 @@ $(document).ready(function () {
           divAnimado.style.backgroundImage = "url(../../images/normal2.gif)";
           maquina2(
             "bienvenida",
-            "Hola!, Soy genio, en este juego deberás identificar con que parte de tu cuerpo realizas las acciones mostradas. Tu puedes!!!",
+            "Hola!, Soy genio, en este juego deberás identificar que clima esta presente en la imagen mostrada. Tu puedes!!!",
             100,
             1
           );

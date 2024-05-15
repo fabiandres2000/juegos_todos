@@ -31,7 +31,7 @@ var parteAve = [
     "definicion": "Conducto que transporta la bilis desde el hígado hasta el intestino para ayudar en la digestión de las grasas."
   },
   {
-    "parte": "Duodeno",
+    "parte": "Duoden",
     "imagen": "img/Aves/duodena.png",
     "definicion": "La primera porción del intestino delgado donde ocurre la digestión final de los alimentos y la absorción de nutrientes."
   },
@@ -125,7 +125,7 @@ var parteMamifero =[
   },
   {
     "parte": "Libro",
-    "imagen": "img/Mamiferos/Libro.png",
+    "imagen": "img/Mamiferos/libro.png",
     "definicion": "Primera porción del intestino delgado en mamíferos que recibe los jugos digestivos del páncreas y la bilis del hígado para continuar la digestión."
   },
   {
